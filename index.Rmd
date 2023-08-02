@@ -1,0 +1,89 @@
+---
+title: "Final Project"
+author: "Alex Jones"
+date: "2023-08-02"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+#load packages
+library(ggplot2)
+library(reshape2)
+library(afex)
+library(lme4)
+library(lmerTest)
+library(tidyverse)
+```
+
+
+## Overview
+
+This report aims to assess whether minority children judge contextual racial passing (CRP) similarily to White children. After analyzing basic descriptive statistics, we will test the follwowing prediction:
+
+1. Minority children will rate "switching" as OK more than White children.
+
+```{r load}
+
+#Load raw data
+rawData<-read.csv("PBC2 07192023.csv")
+
+#Copy raw data
+data<-rawData
+
+```
+
+
+## Descriptives
+```{r descriptives}
+
+#AGE DESCRIPTIVES
+
+summary(data$age_years, na.rm=TRUE)
+
+mean(data$age_years, na.rm=TRUE)  #in years
+sd (data$age_years, na.rm=TRUE)
+
+min(data$age_years, na.rm=TRUE) #in years
+
+max(data$age_years, na.rm=TRUE)#in years
+
+median(data$age_years,na.rm=TRUE ) #in years
+```
+
+## Racial Analysis
+
+### Prediction 1
+
+Prediciton 1 was unsupported as there is no interaction between race and ratings of OK regarding switching or maitaining their racial identity. 
+```{r 1}
+
+data$Condition_2<-as.factor(data$Condition_2)
+data$White<-as.factor(data$White)
+
+#logistic regression with race interaction
+whiteLog<-glm(OK~Condition_2*White, family="binomial",data=data)
+summary(whiteLog)
+
+#Generate Bar Graph
+bar1<-ggplot(data=data,
+             aes(x=Condition_2,
+                 y=OK,
+                 fill=White))+
+   stat_summary(fun="mean",
+               geom="bar",
+               position="dodge")+
+  scale_x_discrete(labels=c("Maintain", "Switch"))+ 
+    labs(x="Condition",
+       y="OK Ratings")+
+    scale_fill_manual(values=c("yellow","navy"),
+                    guide=F) +
+  theme_grey(base_size=20)
+
+#Output Bar Graph
+bar1
+
+
+```
+

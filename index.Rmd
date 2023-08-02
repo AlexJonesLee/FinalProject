@@ -2,7 +2,12 @@
 title: "Final Project"
 author: "Alex Jones"
 date: "2023-08-02"
-output: html_document
+output:
+   html_document:
+    toc: true
+    toc_float: true
+    fig_width: 10
+    fig_height: 6
 ---
 
 ```{r setup, include=FALSE}

@@ -80,7 +80,7 @@ bar1<-ggplot(data=data,
    stat_summary(fun="mean",
                geom="bar",
                position="dodge")+
-  scale_x_discrete(labels=c("Maintain", "Switch"))+ 
+  scale_x_discrete(labels=c("Maintain Identity", "Switch Identity"))+ 
     labs(x="Condition",
        y="OK Ratings")+
     scale_fill_manual(values=c("yellow","navy"),
@@ -111,7 +111,7 @@ box1<-ggplot(data=data,
        y="Trust")+
   scale_x_discrete(labels=c("Maintain Identity","Switch Identity"))+
   theme_grey(base_size=20)+
-  guides(fill=F)+
+  guides(fill="none")+
   geom_boxplot(notch=TRUE)+
   scale_fill_manual(values=c("yellow","navy"))
 

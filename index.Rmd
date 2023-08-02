@@ -25,9 +25,10 @@ library(tidyverse)
 
 ## Overview
 
-This report aims to assess whether minority children judge contextual racial passing (CRP) similarily to White children. After analyzing basic descriptive statistics, we will test the follwowing prediction:
+This report aims to assess how children judge Contextual Racial Passing (CRP). After analyzing basic descriptive statistics, we will test the following predictions:
 
 1. Minority children will rate "switching" as OK more than White children.
+2. Children will rate those who switch as less trustworthy than those who maintain their identity.
 
 ```{r load}
 
@@ -89,6 +90,32 @@ bar1<-ggplot(data=data,
 #Output Bar Graph
 bar1
 
+
+```
+
+### Prediction 2
+
+Prediction 2 was supported by the t test, as children rated those who switched their identity as less trustworthy than those who maintained their identity.
+```{r}
+
+#Run a t-test 
+tTest<-t.test(Trust ~ Condition_2, var.equal = TRUE, data=data)
+tTest
+
+#Make a graph
+box1<-ggplot(data=data,
+                aes(x=Condition_2,
+                    y=Trust,
+                    fill=Condition_2))+
+  labs(x="Condition",
+       y="Trust")+
+  scale_x_discrete(labels=c("Maintain Identity","Switch Identity"))+
+  theme_grey(base_size=20)+
+  guides(fill=F)+
+  geom_boxplot(notch=TRUE)+
+  scale_fill_manual(values=c("yellow","navy"))
+
+box1
 
 ```
 

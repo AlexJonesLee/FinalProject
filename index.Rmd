@@ -84,7 +84,7 @@ bar1<-ggplot(data=data,
     labs(x="Condition",
        y="OK Ratings")+
     scale_fill_manual(values=c("yellow","navy"),
-                    guide=F) +
+                    guide="none") +
   theme_grey(base_size=20)
 
 #Output Bar Graph
